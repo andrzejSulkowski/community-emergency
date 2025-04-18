@@ -124,19 +124,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Navigate to emergency state screen
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => const EmergencyStateScreen(),
-                            ),
-                          );
-                        },
-                        child: const Text('Enter Emergency Mode'),
-                      ),
                     ] else ...[
                       ElevatedButton(
                         onPressed: _createGroup,
