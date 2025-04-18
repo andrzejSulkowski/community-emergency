@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'emergency_dialog.dart';
 
 class EmergencyFooter extends StatelessWidget {
   const EmergencyFooter({super.key});
@@ -9,7 +10,11 @@ class EmergencyFooter extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: ElevatedButton(
         onPressed: () {
-          // TODO: Implement emergency action
+          showDialog(
+            context: context,
+            barrierDismissible: true,
+            builder: (context) => const EmergencyDialog(),
+          );
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.red,
