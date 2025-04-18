@@ -53,23 +53,6 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: _showCodeDialog,
             ),
           ),
-          Container(
-            margin: const EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: IconButton(
-              icon: const Icon(Icons.add),
-              color: Theme.of(context).colorScheme.primary,
-              onPressed: () {
-                setState(() {
-                  _hasMembers = true;
-                });
-                _updateCode();
-              },
-            ),
-          ),
         ],
       ),
       body: Column(
