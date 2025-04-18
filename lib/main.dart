@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'app/app.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'features/home/presentation/screens/home_screen.dart';
 
-void main() {
-  runApp(const App());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -12,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Item List Demo',
+      title: 'Emergency Group',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -29,9 +32,10 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Item List'),
+      home: const HomeScreen(),
     );
   }
 }
