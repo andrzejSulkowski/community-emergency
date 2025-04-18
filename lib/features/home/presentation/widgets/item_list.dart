@@ -6,18 +6,7 @@ class ItemList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Sample list of items
-    final List<String> items = [
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 4',
-      'Item 5',
-      'Item 6',
-      'Item 7',
-      'Item 8',
-      'Item 9',
-      'Item 10',
-    ];
+    final List<String> items = ['Maxi', 'Dagmara', 'Marek', 'Jennifer'];
 
     return ListView.builder(
       itemCount: items.length,
