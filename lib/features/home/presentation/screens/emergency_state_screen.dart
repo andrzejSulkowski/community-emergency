@@ -9,6 +9,11 @@ class EmergencyStateScreen extends StatefulWidget {
 
 class _EmergencyStateScreenState extends State<EmergencyStateScreen> {
   bool _isEmergencyActive = true;
+  bool _isDragging = false;
+  double _dragPosition = 0.0;
+  final double _toggleWidth = 200.0;
+  final double _toggleHeight = 60.0;
+  final double _toggleButtonWidth = 80.0;
 
   void _disableEmergency() {
     setState(() {
@@ -40,41 +45,75 @@ class _EmergencyStateScreenState extends State<EmergencyStateScreen> {
               ),
             ),
             Container(
+              width: double.infinity,
               padding: const EdgeInsets.all(24.0),
+              decoration: BoxDecoration(
+                color: Colors.red.shade900,
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(20),
+                ),
+              ),
               child: Row(
                 children: [
                   Text(
-                    'Hold to disable',
+                    'Drag to disable',
                     style: Theme.of(
                       context,
                     ).textTheme.titleLarge?.copyWith(color: Colors.white),
                   ),
                   const Spacer(),
                   GestureDetector(
+                    onPanStart: (details) {
+                      setState(() {
+                        _isDragging = true;
+                      });
+                    },
                     onPanUpdate: (details) {
                       if (details.delta.dx > 0) {
-                        // Only allow right movement
+                        setState(() {
+                          _dragPosition = (_dragPosition + details.delta.dx)
+                              .clamp(0.0, _toggleWidth - _toggleButtonWidth);
+                        });
+                      }
+                    },
+                    onPanEnd: (details) {
+                      setState(() {
+                        _isDragging = false;
+                      });
+                      if (_dragPosition >=
+                          (_toggleWidth - _toggleButtonWidth) / 2) {
                         _disableEmergency();
+                      } else {
+                        setState(() {
+                          _dragPosition = 0.0;
+                        });
                       }
                     },
                     child: Container(
-                      width: 100,
-                      height: 50,
+                      width: _toggleWidth,
+                      height: _toggleHeight,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(25),
+                        borderRadius: BorderRadius.circular(_toggleHeight / 2),
                       ),
                       child: Stack(
                         children: [
                           AnimatedPositioned(
                             duration: const Duration(milliseconds: 200),
-                            left: _isEmergencyActive ? 0 : 50,
+                            left:
+                                _isDragging
+                                    ? _dragPosition
+                                    : (_isEmergencyActive
+                                        ? 0
+                                        : _toggleWidth - _toggleButtonWidth),
                             child: Container(
-                              width: 50,
-                              height: 50,
+                              width: _toggleButtonWidth,
+                              height: _toggleHeight,
                               decoration: BoxDecoration(
                                 color: Colors.red,
-                                borderRadius: BorderRadius.circular(25),
+                                borderRadius: BorderRadius.circular(
+                                  _toggleHeight / 2,
+                                ),
                               ),
                             ),
                           ),
